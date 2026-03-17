@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập - Book Haven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8B4513;
+      --primary-dark: #6B3410;
+      --secondary: #D4A574;
+      --accent: #E8D5B7;
+      --bg-cream: #FDF8F3;
+      --bg-white: #FFFFFF;
+      --text-dark: #2C1810;
+      --text-muted: #6B5B4F;
+      --border: #E8D5B7;
+      --success: #2E7D32;
+      --error: #C62828;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+    }
+    
+    .login-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(139, 69, 19, 0.15);
+      overflow: hidden;
+    }
+    
+    .login-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 40px 40px 60px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .login-header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      background: var(--bg-white);
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-header .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .login-header .logo svg { width: 28px; height: 28px; }
+    
+    .login-header p {
+      color: var(--accent);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    
+    .login-body {
+      padding: 40px;
+    }
+    
+    .login-body h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+    }
+    
+    .form-group { margin-bottom: 20px; }
+    
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.2s;
+      background: var(--bg-cream);
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--bg-white);
+    }
+    
+    .form-group input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .btn-login {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    
+    .btn-login:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+    }
+    
+    .btn-login:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .message.error {
+      display: block;
+      background: #FFEBEE;
+      color: var(--error);
+      border: 1px solid #FFCDD2;
+    }
+    
+    .message.success {
+      display: block;
+      background: #E8F5E9;
+      color: var(--success);
+      border: 1px solid #C8E6C9;
+    }
+    
+    .login-footer {
+      text-align: center;
+      padding: 20px 40px 40px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .login-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .back-home {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .back-home:hover {
+      color: var(--primary);
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 2H6c-1.206 0-3.799.8-5 2-1.201-1.2-2.794-2-5-2H3v20h18V2zm-5 18c-1.103 0-2-.897-2-2 0-1.103.897-2 2-2s2 .897 2 2c0 1.103-.897 2-2 2z"/></svg>
+          Book Haven
+        </div>
+        <p>Cửa hàng sách online</p>
+      </div>
+      
+      <div class="login-body">
+        <h2>Chào mừng trở lại</h2>
+        
+        <div id="message" class="message"></div>
+        
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Nhập email của bạn" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+          </div>
+          
+          <button type="submit" class="btn-login" id="loginBtn">Đăng nhập</button>
+        </form>
+        
+      </div>
+      
+      <div class="login-footer">
+        <a href="/" class="back-home">
+          ← Quay về trang chủ
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    async function handleLogin(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+      const msg = document.getElementById('message');
+      
+      btn.disabled = true;
+      btn.textContent = 'Đang đăng nhập...';
+      msg.className = 'message';
+      msg.style.display = 'none';
+      
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          location.href = '/';
+        } else {
+          msg.className = 'message error';
+          msg.textContent = data.error || 'Đăng nhập thất bại';
+          msg.style.display = 'block';
+        }
+      } catch (e) {
+        msg.className = 'message error';
+        msg.textContent = 'Có lỗi xảy ra. Vui lòng thử lại.';
+        msg.style.display = 'block';
+      }
+      
+      btn.disabled = false;
+      btn.textContent = 'Đăng nhập';
+    }
+  </script>
+</body>
+</html>
