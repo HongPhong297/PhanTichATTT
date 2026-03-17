@@ -769,7 +769,17 @@
   </footer>
   
   <script>
-    const token = localStorage.getItem('token');
+    function getToken() {
+      const cookies = document.cookie.split(';');
+      for (let c of cookies) {
+        if (c.trim().startsWith('token=')) {
+          return c.trim().substring(6);
+        }
+      }
+      return localStorage.getItem('token');
+    }
+    
+    const token = getToken();
     
     if (token) {
       try {
@@ -777,13 +787,12 @@
         
         if (payload.role === 'admin') {
           location.href = '/admin';
-          return;
+        } else {
+          document.getElementById('guestActions').style.display = 'none';
+          document.getElementById('userActions').style.display = 'block';
+          document.getElementById('headerAvatar').textContent = payload.email[0].toUpperCase();
+          document.getElementById('headerUsername').textContent = payload.email.split('@')[0];
         }
-        
-        document.getElementById('guestActions').style.display = 'none';
-        document.getElementById('userActions').style.display = 'block';
-        document.getElementById('headerAvatar').textContent = payload.email[0].toUpperCase();
-        document.getElementById('headerUsername').textContent = payload.email.split('@')[0];
       } catch (e) {
         logout();
       }
@@ -799,16 +808,9 @@
       }
     });
     
-    function goToProfile() {
-      alert('Tính năng đang phát triển!');
-    }
-    
-    function goToOrders() {
-      alert('Tính năng đang phát triển!');
-    }
-    
     function logout() {
       localStorage.removeItem('token');
+      document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC';
       location.href = '/login';
     }
   </script>
